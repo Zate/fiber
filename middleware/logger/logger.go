@@ -266,7 +266,7 @@ func New(config ...Config) fiber.Handler {
 		_, err = tmpl.ExecuteFunc(buf, func(w io.Writer, tag string) (int, error) {
 			switch tag {
 			case TagTime:
-				return buf.WriteString(c.Context().Time().String())
+				return buf.WriteString(c.Context().Time().In(cfg.timeZoneLocation).Format(cfg.TimeFormat))
 			case TagReferer:
 				return buf.WriteString(c.Get(fiber.HeaderReferer))
 			case TagProtocol:
